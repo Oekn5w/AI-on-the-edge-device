@@ -118,7 +118,7 @@ bool ClassFlowMQTT::ReadParameter(FILE* pfile, string& aktparamgraph)
         mainerrortopic = maintopic + "/connection";
         printf("Init MQTT with uri: %s, clientname: %s, user: %s, password: %s, maintopic: %s\n", uri.c_str(), clientname.c_str(), user.c_str(), password.c_str(), mainerrortopic.c_str());
         MQTTInit(uri, clientname, user, password, mainerrortopic, 60); 
-        MQTTPublish(mainerrortopic, "connected");
+        MQTTPublish(mainerrortopic, "connected", 1);
         MQTTenable = true;
     }
    
@@ -145,22 +145,22 @@ bool ClassFlowMQTT::doFlow(string zwtime)
     string zw = "";
     string namenumber = "";
 
-    MQTTPublish(mainerrortopic, "connected");
+    MQTTPublish(mainerrortopic, "connected", 1);
     
     zw = maintopic + "/" + "uptime";
     char uptimeStr[11];
     sprintf(uptimeStr, "%ld", (long)getUpTime());
-    MQTTPublish(zw, uptimeStr);
+    MQTTPublish(zw, uptimeStr, 1);
 
     zw = maintopic + "/" + "freeMem";
     char freeheapmem[11];
     sprintf(freeheapmem, "%zu", esp_get_free_heap_size());
-    MQTTPublish(zw, freeheapmem);
+    MQTTPublish(zw, freeheapmem, 1);
 
     zw = maintopic + "/" + "wifiRSSI";
     char rssi[11];
     sprintf(rssi, "%d", get_WIFI_RSSI());
-    MQTTPublish(zw, rssi);
+    MQTTPublish(zw, rssi, 1);
 
 
     if (flowpostprocessing)
@@ -183,7 +183,7 @@ bool ClassFlowMQTT::doFlow(string zwtime)
 
             zw = namenumber + "value"; 
             if (result.length() > 0)   
-                MQTTPublish(zw, result);
+                MQTTPublish(zw, result, 1);
 
             zw = namenumber + "error"; 
             if (resulterror.length() > 0)  
@@ -191,15 +191,15 @@ bool ClassFlowMQTT::doFlow(string zwtime)
 
             zw = namenumber + "rate"; 
             if (resultrate.length() > 0)   
-                MQTTPublish(zw, resultrate);
+                MQTTPublish(zw, resultrate, 1);
 
             zw = namenumber + "raw"; 
             if (resultraw.length() > 0)   
-                MQTTPublish(zw, resultraw);
+                MQTTPublish(zw, resultraw, 1);
 
             zw = namenumber + "timestamp";
             if (resulttimestamp.length() > 0)
-                MQTTPublish(zw, resulttimestamp);
+                MQTTPublish(zw, resulttimestamp, 1);
 
 
             std::string json = "";
@@ -218,7 +218,7 @@ bool ClassFlowMQTT::doFlow(string zwtime)
             json += ",\"timestamp\":\""+resulttimestamp+"\"}";
 
             zw = namenumber + "json";
-            MQTTPublish(zw, json);
+            MQTTPublish(zw, json, 1);
         }
     }
     else
@@ -234,7 +234,7 @@ bool ClassFlowMQTT::doFlow(string zwtime)
                     result = result + "\t" + zw;
             }
         }
-        MQTTPublish(topic, result);
+        MQTTPublish(topic, result, 1);
     }
     
     OldValue = result;
