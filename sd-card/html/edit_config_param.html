@@ -663,7 +663,7 @@ textarea {
 				<class id="AutoTimer_Intervall_text" style="color:black;">Intervall</class>
 			</td>
 			<td>
-				<input type="number" id="AutoTimer_Intervall_value1" size="13" min="3" step="any">
+				<input type="number" id="AutoTimer_Intervall_value1" size="13" min="1" step="any">
 			</td>
 			<td style="font-size: 80%;">
 				Intervall in which the counter is read (in minutes). Number must be greater than 3 minutes.
@@ -1491,7 +1491,7 @@ function WriteParameter(_param, _category, _cat, _name, _optional, _number = -1)
 				}
 				if (!_isFound)
 				{
-					_zw_txt = "In the selectd field the value '" + textToFind + "' in the parameter '";
+					_zw_txt = "In the selected field the value '" + textToFind + "' in the parameter '";
 					_zw_txt = _zw_txt + _cat + "' in the field '" + _name + "' is invalid.\nPLEASE CHECK BEFORE SAVING!";
 					alert(_zw_txt);
 				}
@@ -1532,7 +1532,7 @@ function WriteParameter(_param, _category, _cat, _name, _optional, _number = -1)
 				}
 				if (!_isFound)
 				{
-					_zw_txt = "In the selectd field the value '" + textToFind + "' in the section '";
+					_zw_txt = "In the selected field the value '" + textToFind + "' in the section '";
 					_zw_txt = _zw_txt + _cat + "' in the field '" + _name + "' is invalid.\nPLEASE CHECK BEFORE SAVING!";
 					alert(_zw_txt);
 				}
